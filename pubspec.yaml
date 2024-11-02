@@ -41,6 +41,8 @@ dependencies:
   image_picker: ^1.1.2
   path_provider: ^2.1.5
   uuid: ^4.5.1
+  kakao_flutter_sdk_auth: ^1.9.6
+  kakao_flutter_sdk_user: ^1.9.6
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +66,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
