@@ -9,6 +9,7 @@ void main() {
   // runApp() 호출 전 Flutter SDK 초기화
   KakaoSdk.init(
     nativeAppKey: 'df17ea99e1579611972ffbb1ff069e51',
+    javaScriptAppKey: '5a672a68e51b8ae658caa536d8020854',
   );
 
   initializeDateFormatting().then((_) => runApp(const MyApp()));
