@@ -55,10 +55,10 @@ class LoginPage extends StatelessWidget {
                 // 버튼 누르면 스낵바 표시
                 try {
                   OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-                  print('카카오톡으로 로그인 성공 ${token.accessToken}');
+                  debugPrint('카카오톡으로 로그인 성공 ${token.accessToken}');
                   try {
                     User user = await UserApi.instance.me();
-                    print('사용자 정보 요청 성공'
+                    debugPrint('사용자 정보 요청 성공'
                         '\n회원번호: ${user.id}'
                         '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
                         '\n이메일: ${user.kakaoAccount?.email}');
@@ -70,10 +70,10 @@ class LoginPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => const ChatPage()),
                     );
                   } catch (error) {
-                    print('사용자 정보 요청 실패 $error');
+                    debugPrint('사용자 정보 요청 실패 $error');
                   }
                 } catch (error) {
-                  print('카카오톡으로 로그인 실패 $error');
+                  debugPrint('카카오톡으로 로그인 실패 $error');
                 }
               },
               splashColor: Colors.black.withOpacity(0.2), // 클릭할 때의 물결색

@@ -34,7 +34,7 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _keyboardHeight = TempManager().keyboardHeight;
+    _keyboardHeight = TempManager().getKeyboardHeight();
     _controller = AnimationController(
       duration: const Duration(milliseconds: bottomSheetAnimationTime),
       vsync: this,
