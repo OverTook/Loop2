@@ -24,13 +24,13 @@ void main() async {
 
   TempManager().init(); //정보 임시 저장 클래스 초기화
 
+  var appInstance = LoopApp(
+      isLoggedIn: await credentialCheck()
+  );
+
   FlutterNativeSplash.remove();
 
-  runApp(
-      LoopApp(
-          isLoggedIn: await credentialCheck()
-      )
-  );
+  runApp(appInstance);
 }
 
 Future<bool> credentialCheck() async {
