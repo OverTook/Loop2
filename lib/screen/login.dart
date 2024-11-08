@@ -1,12 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao_auth;
 
 import 'chat.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
+  Future<kakao_auth.OAuthToken?> loginKakao() async {
+    try {
+      kakao_auth.OAuthToken token = await kakao_auth.UserApi.instance.loginWithKakaoTalk();
+      return token;
+    } catch (error) {
+      debugPrint('카카오톡으로 로그인 실패 $error');
+      return null;
+    }
+  }
+
+  Future<bool> loginFirebase(kakao_auth.OAuthToken token) async {
+    try {
+      await firebase_auth.FirebaseAuth.instance.signInWithCredential(
+          firebase_auth.OAuthProvider('oidc.kakao_login').credential(
+            idToken: token.idToken,
+            accessToken: token.accessToken,
+          )
+      );
+      return true;
+    } catch (error) {
+      debugPrint('로그인 실패 $error');
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,28 +78,24 @@ class LoginPage extends StatelessWidget {
             InkWell(
               onTap: () async {
                 // 버튼 누르면 스낵바 표시
-                try {
-                  OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-                  debugPrint('카카오톡으로 로그인 성공 ${token.accessToken}');
-                  try {
-                    User user = await UserApi.instance.me();
-                    debugPrint('사용자 정보 요청 성공'
-                        '\n회원번호: ${user.id}'
-                        '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
-                        '\n이메일: ${user.kakaoAccount?.email}');
-
-                    if(!context.mounted) return;
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ChatPage()),
-                    );
-                  } catch (error) {
-                    debugPrint('사용자 정보 요청 실패 $error');
-                  }
-                } catch (error) {
-                  debugPrint('카카오톡으로 로그인 실패 $error');
+                kakao_auth.OAuthToken? token = await loginKakao();
+                if(token == null) {
+                  debugPrint("카카오 로그인 실패");
+                  return;
                 }
+
+                bool loginResult = await loginFirebase(token);
+                if(!loginResult) {
+                  debugPrint("Firebase 로그인 실패");
+                  return;
+                }
+
+                if(!context.mounted) return;
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChatPage()),
+                );
               },
               splashColor: Colors.black.withOpacity(0.2), // 클릭할 때의 물결색
               borderRadius: BorderRadius.circular(8), // 잔물결 효과를 위한 경계 곡률

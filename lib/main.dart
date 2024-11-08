@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:kakao_flutter_sdk_auth/kakao_flutter_sdk_auth.dart' as kakao_auth;
 import 'package:loop/manager/temp_manager.dart';
 import 'package:loop/screen/chat.dart';
 import 'package:loop/screen/login.dart';
@@ -13,7 +14,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  KakaoSdk.init(
+  kakao_auth.KakaoSdk.init(
     nativeAppKey: 'e7cbf47f62608a85b7c27a548c00d509',
     javaScriptAppKey: '5a672a68e51b8ae658caa536d8020854',
   );
@@ -24,27 +25,21 @@ void main() async {
 
   TempManager().init(); //정보 임시 저장 클래스 초기화
 
-  var appInstance = LoopApp(
-      isLoggedIn: await credentialCheck()
-  );
-
   FlutterNativeSplash.remove();
 
-  runApp(appInstance);
-}
-
-Future<bool> credentialCheck() async {
-  try {
-    User user = await UserApi.instance.me();
-    debugPrint('사용자 정보 요청 성공'
-        '\n회원번호: ${user.id}'
-        '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'
-        '\n이메일: ${user.kakaoAccount?.email}');
-
-    return true;
-  } catch (error) {
-    return false;
+  var user = firebase_auth.FirebaseAuth.instance.currentUser;
+  if(user != null) {
+    debugPrint("로그인");
+    debugPrint(user.displayName);
+    debugPrint(user.email);
+    debugPrint(user.photoURL);
+    debugPrint(user.phoneNumber);
+    debugPrint(user.uid);
   }
+
+  runApp(LoopApp(
+      isLoggedIn: firebase_auth.FirebaseAuth.instance.currentUser != null
+  ));
 }
 
 class LoopApp extends StatelessWidget {

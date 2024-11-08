@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1073104380740",
-    "project_id": "loop-flutter-e3044",
-    "storage_bucket": "loop-flutter-e3044.firebasestorage.app"
+    "project_number": "1093774391664",
+    "project_id": "hci202401",
+    "storage_bucket": "hci202401.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1073104380740:android:43d426abdcceb429fa2d11",
+        "mobilesdk_app_id": "1:1093774391664:android:c0dab3e8aaa5eb94c6f7b5",
         "android_client_info": {
           "package_name": "com.gogang.loop.loop"
         }
@@ -15,7 +15,32 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCSair9jjrS5WF25f1DijnMlZnQYd-oR08"
+          "current_key": "AIzaSyCCIESeVFFAQms_4A1Cp9B_5Wrv-3JhEE0"
+        },
+        {
+          "current_key": "AIzaSyAdS6sWI8GBXtyuCfx6AcEJ-7LpqwoV5dM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093774391664:android:fe1d95eee425fbfcc6f7b5",
+        "android_client_info": {
+          "package_name": "com.hci.loopsns"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCIESeVFFAQms_4A1Cp9B_5Wrv-3JhEE0"
+        },
+        {
+          "current_key": "AIzaSyAdS6sWI8GBXtyuCfx6AcEJ-7LpqwoV5dM"
         }
       ],
       "services": {

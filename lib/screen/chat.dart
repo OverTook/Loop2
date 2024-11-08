@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loop/manager/temp_manager.dart';
@@ -104,6 +105,8 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
               icon: const Icon(Icons.search),
               onPressed: () {
                 // 검색 기능 구현
+                // 임시로 로그아웃으로 쓴다.
+                FirebaseAuth.instance.signOut();
               },
             ),
             IconButton(

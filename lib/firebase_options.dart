@@ -47,29 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBiZZvJdI2IKeg5bJEdS3O8pkkJvW6giiA',
-    appId: '1:1073104380740:web:2f168dd1e5b80d11fa2d11',
-    messagingSenderId: '1073104380740',
-    projectId: 'loop-flutter-e3044',
-    authDomain: 'loop-flutter-e3044.firebaseapp.com',
-    storageBucket: 'loop-flutter-e3044.firebasestorage.app',
-    measurementId: 'G-4MDSC3S5MW',
+    apiKey: 'AIzaSyCHZyZePN8KGepFQzI5KDXb21tVg8NtcLI',
+    appId: '1:1093774391664:web:624e00ca2c6cd74dc6f7b5',
+    messagingSenderId: '1093774391664',
+    projectId: 'hci202401',
+    authDomain: 'hci202401.firebaseapp.com',
+    storageBucket: 'hci202401.appspot.com',
+    measurementId: 'G-20Q9K1C6CQ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCSair9jjrS5WF25f1DijnMlZnQYd-oR08',
-    appId: '1:1073104380740:android:43d426abdcceb429fa2d11',
-    messagingSenderId: '1073104380740',
-    projectId: 'loop-flutter-e3044',
-    storageBucket: 'loop-flutter-e3044.firebasestorage.app',
+    apiKey: 'AIzaSyCCIESeVFFAQms_4A1Cp9B_5Wrv-3JhEE0',
+    appId: '1:1093774391664:android:c0dab3e8aaa5eb94c6f7b5',
+    messagingSenderId: '1093774391664',
+    projectId: 'hci202401',
+    storageBucket: 'hci202401.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDvuHXy3fmlm0jVjOHi7YpBGsL4kSpIyFA',
-    appId: '1:1073104380740:ios:43f8f684f6e1c670fa2d11',
-    messagingSenderId: '1073104380740',
-    projectId: 'loop-flutter-e3044',
-    storageBucket: 'loop-flutter-e3044.firebasestorage.app',
+    apiKey: 'AIzaSyCwlbDw1K9aRsxIG83AMeLjTyo7kOlaEKU',
+    appId: '1:1093774391664:ios:d53ec5d4bcdf5832c6f7b5',
+    messagingSenderId: '1093774391664',
+    projectId: 'hci202401',
+    storageBucket: 'hci202401.appspot.com',
     iosBundleId: 'com.gogang.loop.loop',
   );
+
 }

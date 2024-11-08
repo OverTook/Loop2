@@ -5,7 +5,6 @@ const String KEY_KEYBOARD_HEIGHT = 'keyboardHeight';
 
 class TempManager {
   double _keyboardHeight = 0;
-  User? _user;
 
   double getKeyboardHeight() => _keyboardHeight;
   void setKeyboardHeight(double value) async {
@@ -14,11 +13,6 @@ class TempManager {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble(KEY_KEYBOARD_HEIGHT, value);
   }
-
-  bool isLoggedIn() => _user == null;
-
-  User getProfile() => _user!;
-  void setProfile(User user) => _user = user;
 
   void init() async {
     final prefs = await SharedPreferences.getInstance();
