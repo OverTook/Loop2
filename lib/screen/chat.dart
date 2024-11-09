@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loop/manager/temp_manager.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin {
+class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateMixin {
   var currentTime = DateTime.now();
   bool canPopNow = false;
 
@@ -36,6 +36,7 @@ class _ChatPageState extends State<ChatPage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _keyboardHeight = TempManager().getKeyboardHeight();
+    debugPrint(_keyboardHeight.toString());
     _controller = AnimationController(
       duration: const Duration(milliseconds: bottomSheetAnimationTime),
       vsync: this,

@@ -2,24 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao_auth;
+import 'package:loop/manager/temp_manager.dart';
+import 'package:loop/screen/license.dart';
 
 import 'chat.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
-  Future<kakao_auth.OAuthToken?> loginKakao() async {
+  Future<bool> login() async {
     try {
       kakao_auth.OAuthToken token = await kakao_auth.UserApi.instance.loginWithKakaoTalk();
-      return token;
-    } catch (error) {
-      debugPrint('카카오톡으로 로그인 실패 $error');
-      return null;
-    }
-  }
-
-  Future<bool> loginFirebase(kakao_auth.OAuthToken token) async {
-    try {
       await firebase_auth.FirebaseAuth.instance.signInWithCredential(
           firebase_auth.OAuthProvider('oidc.kakao_login').credential(
             idToken: token.idToken,
@@ -32,6 +25,33 @@ class LoginPage extends StatelessWidget {
       return false;
     }
   }
+
+  Future<String?> getLicense() async {
+    var user = firebase_auth.FirebaseAuth.instance.currentUser;
+    if(user == null) {
+      return null;
+    }
+
+    var claims = (await user.getIdTokenResult()).claims;
+    debugPrint(claims.toString());
+    if(claims == null) {
+      return null;
+    }
+
+    var licenses = claims["licenses"];
+    debugPrint(licenses.toString());
+    debugPrint(licenses.runtimeType.toString());
+    if(licenses == null) {
+      return null;
+    }
+
+    if(licenses is! Map<Object?, Object?>) {
+      return null;
+    }
+
+    return licenses["key"] as String?;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,29 +92,34 @@ class LoginPage extends StatelessWidget {
 
               ],
             ),
-
-            // 화면 하단에 버튼
             const Spacer(),
             InkWell(
               onTap: () async {
-                // 버튼 누르면 스낵바 표시
-                kakao_auth.OAuthToken? token = await loginKakao();
-                if(token == null) {
-                  debugPrint("카카오 로그인 실패");
-                  return;
-                }
-
-                bool loginResult = await loginFirebase(token);
+                bool loginResult = await login();
                 if(!loginResult) {
                   debugPrint("Firebase 로그인 실패");
                   return;
                 }
 
-                if(!context.mounted) return;
+                var currentLicense = await getLicense();
+                if(!context.mounted) {
+                  return;
+                }
+
+                debugPrint(currentLicense);
+                if(TempManager().getKeyboardHeight() == 0 || currentLicense == null) {
+                  //키보드 높이가 저장되지 않았으므로
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LicenseInputScreen(license: currentLicense)),
+                  );
+                  return;
+                }
+
 
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ChatPage()),
+                  MaterialPageRoute(builder: (context) => const ChatScreen()),
                 );
               },
               splashColor: Colors.black.withOpacity(0.2), // 클릭할 때의 물결색

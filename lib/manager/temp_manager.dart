@@ -1,4 +1,3 @@
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String KEY_KEYBOARD_HEIGHT = 'keyboardHeight';
@@ -14,7 +13,7 @@ class TempManager {
     await prefs.setDouble(KEY_KEYBOARD_HEIGHT, value);
   }
 
-  void init() async {
+  Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
     _keyboardHeight = prefs.getDouble(KEY_KEYBOARD_HEIGHT) ?? 0;
   }

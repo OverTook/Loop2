@@ -23,7 +23,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  TempManager().init(); //정보 임시 저장 클래스 초기화
+  await TempManager().init(); //정보 임시 저장 클래스 초기화
 
   FlutterNativeSplash.remove();
 
@@ -62,7 +62,7 @@ class LoopApp extends StatelessWidget {
             },
           ),
         ),
-        home: isLoggedIn ? const ChatPage() : const LoginPage(),
+        home: isLoggedIn ? const ChatScreen() : const LoginScreen(),
     );
   }
 }

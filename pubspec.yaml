@@ -42,10 +42,15 @@ dependencies:
   firebase_core: ^3.6.0
   shared_preferences: ^2.3.2
   firebase_auth: ^5.3.2
+  retrofit: ^4.4.1
+  dio: ^5.7.0
+  keyboard_height_plugin: ^0.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  retrofit_generator: '>=8.0.0 <10.0.0' # for Dart 3.3 use ^9.0.0
+  build_runner: ^2.3.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -53,6 +58,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  json_serializable: ^6.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
