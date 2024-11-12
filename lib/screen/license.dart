@@ -22,7 +22,7 @@ class LicenseInputScreen extends StatefulWidget {
 class _LicenseInputScreenState extends State<LicenseInputScreen> {
   final List<TextEditingController> _controllers = List.generate(4, (_) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
-  final TempManager tempManager = TempManager();
+  final TempManager _tempManager = TempManager();
   final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
 
   bool _isButtonEnabled = false;
@@ -38,16 +38,16 @@ class _LicenseInputScreenState extends State<LicenseInputScreen> {
       FocusScope.of(context).requestFocus(_focusNodes[widget.license == null ? 0 : 3]);
     });
     for(int i = 0; i < _controllers.length; i++) {
-      _controllers[i].addListener(_checkIfAllFieldsAreFilled);
+      _controllers[i].addListener(_checkFilled);
       if(widget.license != null) {
         _controllers[i].text = widget.license!.substring(i * 4 + 1 * i, i * 4 + 1 * i + 4);
       }
     }
 
     _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-      if(tempManager.getKeyboardHeight() != 0 || height < 1) return;
+      if(_tempManager.getKeyboardHeight() != 0 || height < 1) return;
 
-      tempManager.setKeyboardHeight(height);
+      _tempManager.setKeyboardHeight(height);
     });
   }
 
@@ -69,7 +69,7 @@ class _LicenseInputScreenState extends State<LicenseInputScreen> {
     }
   }
 
-  void _checkIfAllFieldsAreFilled() {
+  void _checkFilled() {
     bool allFieldsFilled = _controllers.every((controller) => controller.text.length == 4);
     setState(() {
       _isButtonEnabled = allFieldsFilled;

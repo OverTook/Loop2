@@ -6,7 +6,7 @@ class TempManager {
   double _keyboardHeight = 0;
 
   double getKeyboardHeight() => _keyboardHeight;
-  void setKeyboardHeight(double value) async {
+  Future<void> setKeyboardHeight(double value) async {
     _keyboardHeight = value;
 
     final prefs = await SharedPreferences.getInstance();

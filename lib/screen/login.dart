@@ -10,7 +10,7 @@ import 'chat.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  Future<bool> login() async {
+  Future<bool> _login() async {
     try {
       kakao_auth.OAuthToken token = await kakao_auth.UserApi.instance.loginWithKakaoTalk();
       await firebase_auth.FirebaseAuth.instance.signInWithCredential(
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
     }
   }
 
-  Future<String?> getLicense() async {
+  Future<String?> _getLicense() async {
     var user = firebase_auth.FirebaseAuth.instance.currentUser;
     if(user == null) {
       return null;
@@ -95,13 +95,13 @@ class LoginScreen extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: () async {
-                bool loginResult = await login();
+                bool loginResult = await _login();
                 if(!loginResult) {
                   debugPrint("Firebase 로그인 실패");
                   return;
                 }
 
-                var currentLicense = await getLicense();
+                var currentLicense = await _getLicense();
                 if(!context.mounted) {
                   return;
                 }
