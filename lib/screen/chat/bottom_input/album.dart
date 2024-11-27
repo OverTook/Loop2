@@ -125,7 +125,6 @@ class AlbumCarousel extends StatelessWidget {
             child: Image(
               image: AssetEntityImageProvider(asset, isOriginal: false),
               fit: BoxFit.cover, // 이미지 크기 조정
-              height: MediaQuery.of(context).size.height * 0.4, // 부모 높이의 40%
             ),
           ),
         );
