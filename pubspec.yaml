@@ -46,6 +46,7 @@ dependencies:
   dio: ^5.7.0
   keyboard_height_plugin: ^0.1.5
   photo_manager: ^3.6.2
+  photo_manager_image_provider: ^2.2.0
 
 dev_dependencies:
   flutter_test:

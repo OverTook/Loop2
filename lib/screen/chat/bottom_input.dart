@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 import 'package:loop/const/constants.dart';
 import 'package:loop/screen/chat/bottom_input/album.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 import '../../manager/temp_manager.dart';
 
@@ -78,6 +79,25 @@ class _BottomInputWidgetState extends State<BottomInputWidget> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    return PopScope(
+      canPop: !_isAlbumOpen && !_isSheetOpen && !_isKeyboardOpen,
+      onPopInvokedWithResult: (b, _) {
+        if(_isAlbumOpen) {
+          setState(() {
+            _isAlbumOpen = false;
+          });
+          return;
+        }
+
+        if(_isSheetOpen) {
+          setState(() {
+            _isSheetOpen = false;
+          });
+          return;
+        }
+      },
+      child: _isAlbumOpen ? _buildGallery() : _buildBottomInput(),
+    );
     return _isAlbumOpen ? _buildGallery() : _buildBottomInput();
   }
 
@@ -93,6 +113,8 @@ class _BottomInputWidgetState extends State<BottomInputWidget> with SingleTicker
             curve: Curves.easeOutCubic,
             padding: EdgeInsets.only(bottom: _isSheetOpen || _isKeyboardOpen ? _keyboardHeight : 0),
             child: Container(
+              height: 47,
+              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
               color: Colors.white,
               child: GestureDetector(
@@ -105,9 +127,9 @@ class _BottomInputWidgetState extends State<BottomInputWidget> with SingleTicker
                   backgroundColor: Colors.grey.shade200,
                   radius: 15,
                   child: const Icon(
-                    Icons.add_rounded,
+                    Icons.arrow_back_ios_rounded,
                     color: Colors.grey,
-                    size: 25,
+                    size: 18,
                   ),
                 ),
               ),
@@ -235,11 +257,17 @@ class _BottomInputWidgetState extends State<BottomInputWidget> with SingleTicker
                     icon: Icons.photo_album,
                     backgroundColor: Colors.blue,
                     label: "앨범",
-                    onTap: () {
+                    onTap: () async {
                       // 앨범 열기 기능
-                      setState(() {
-                        _isAlbumOpen = true;
-                      });
+                      var result = await PhotoManager.requestPermissionExtend();
+
+                      if (result == PermissionState.authorized || result == PermissionState.limited) {
+                        setState(() {
+                          _isAlbumOpen = true;
+                        });
+                      } else {
+                        PhotoManager.openSetting();
+                      }
                     },
                   ),
                   _buildBottomSheetItem(
