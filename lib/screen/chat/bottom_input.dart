@@ -7,6 +7,8 @@ import 'package:photo_manager/photo_manager.dart';
 import '../../manager/temp_manager.dart';
 
 class BottomInputWidget extends StatefulWidget {
+  const BottomInputWidget({super.key});
+
   @override
   State<StatefulWidget> createState() => _BottomInputWidgetState();
 
@@ -98,7 +100,6 @@ class _BottomInputWidgetState extends State<BottomInputWidget> with SingleTicker
       },
       child: _isAlbumOpen ? _buildGallery() : _buildBottomInput(),
     );
-    return _isAlbumOpen ? _buildGallery() : _buildBottomInput();
   }
 
   Widget _buildGallery() {

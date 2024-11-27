@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
+
+import '../../album.dart';
 
 class MediaGrid extends StatefulWidget {
   const MediaGrid({super.key});
@@ -65,7 +66,10 @@ class _MediaGridState extends State<MediaGrid> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
             onPressed: () {
-
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PhotoGalleryApp()),
+              );
             },
             child: const Row(
               children: [
@@ -115,9 +119,9 @@ class AlbumCarousel extends StatelessWidget {
       itemBuilder: (context, index) {
         final asset = assets[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0), // 아이템 간 간격
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0), // 모서리 둥글게
+          padding: const EdgeInsets.symmetric(horizontal: 2.0), // 아이템 간 간격
+          child: AspectRatio(
+            aspectRatio: 1,
             child: Image(
               image: AssetEntityImageProvider(asset, isOriginal: false),
               fit: BoxFit.cover, // 이미지 크기 조정
